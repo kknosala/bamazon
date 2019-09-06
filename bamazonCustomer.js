@@ -1,11 +1,12 @@
 var inquirer = require('inquirer');
 var mysql = require('mysql');
+var Table = require('cli-table')
 
 var connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "3415671Tucker.",
+    password: "",
     database: "bamazon_db"
   });
 
@@ -27,7 +28,7 @@ var connection = mysql.createConnection({
           switch(res.choice) {
             case 'Buy Something':
                 console.log('Test Text');
-                startUp();
+                shopping();
                 break;
             case 'Quit':
                 console.log('Goodbye!');
@@ -35,4 +36,19 @@ var connection = mysql.createConnection({
                 break;
           }
       })
+  }
+
+  function shopping() {
+    connection.query('SELECT id, prodName, department, price, stock FROM Products', function(err, res) {
+        if (err) throw err;
+        var table = new Table ({
+            head: ['Id', 'Product', 'Department', 'Price', 'Stock'],
+        })
+        for(i = 0; i < res.length; i++) {
+            table.push (
+                [res[i].id, res[i].prodName, res[i].department, res[i].price, res[i].stock]
+            )
+        }
+        console.log(table.toString());
+    })
   }
