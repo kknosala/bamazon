@@ -33,6 +33,7 @@ var connection = mysql.createConnection({
                 lowInventory();
                 break;
             case 'Add to Inventory':
+                addInventory();
                 break;
             case 'Add New Product':
                 break;
@@ -75,4 +76,42 @@ var connection = mysql.createConnection({
         console.log(table.toString() + '\n');
         startMenu();
       })
+  }
+
+  function addInventory() {
+    connection.query('SELECT * FROM Products', function(err, res) {
+        if (err) throw err;
+        var table = new Table ({
+            head: ['Id', 'Product', 'Department', 'Price', 'Stock'],
+        })
+        for(i = 0; i < res.length; i++) {
+            table.push (
+                [res[i].id, res[i].prodName, res[i].department, res[i].price, res[i].stock]
+            )
+        }
+        console.log('\n' + table.toString() + '\n');
+        inquirer.prompt([
+            {
+                type: 'number',
+                name: 'id',
+                message: 'Which product would you like to add inventory to?'
+            },
+            {
+                type: 'number',
+                name: 'amount',
+                message: 'How many would you like to add to the inventory?'
+            }
+        ]).then(function(res) {
+            connection.query('SELECT * FROM Products WHERE ?', {id: res.id}, function(err, response) {
+                if (err) throw err;
+                var addId = response[0].id;
+                var newStock = Number(response[0].stock) + Number(res.amount);
+                connection.query('UPDATE Products SET ? WHERE ?', [{stock: newStock}, {id: addId}], function(err, update) {
+                    if (err) throw err;
+                    console.log(update.affectedRows + " stock updated\n");
+                    startMenu();
+                })
+            })
+        })
+    })
   }
