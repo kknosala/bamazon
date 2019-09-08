@@ -106,10 +106,10 @@ function buyMode() {
           console.log(
             `You have purchased ${res.amount} ${response[0].prodName}(s) for $${total}!`
           );
-
+            var saleUpdate = response[0].product_sales + total;
           connection.query(
-            "UPDATE Products SET ? WHERE ?",
-            [{ stock: `${newStock}` }, { id: `${res.selection}` }],
+            "UPDATE Products SET ?, ? WHERE ?",
+            [{ stock: `${newStock}` }, {product_sales: `${saleUpdate}`}, { id: `${res.selection}` }],
             function(err, res) {
               if (err) throw err;
               console.log(res.affectedRows + " stock updated\n");
