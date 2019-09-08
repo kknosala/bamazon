@@ -36,6 +36,7 @@ var connection = mysql.createConnection({
                 addInventory();
                 break;
             case 'Add New Product':
+                addItemPrompt()
                 break;
             case 'Quit':
                 console.log('Goodbye!');
@@ -115,3 +116,67 @@ var connection = mysql.createConnection({
         })
     })
   }
+
+  function addItemPrompt() {
+      inquirer.prompt([
+          {
+              type: 'confirm',
+              name: 'confirm',
+              message: 'Are you sure you would like to add an item?',
+              default: true
+          }
+      ]).then(function(con) {
+        switch(con.confirm) {
+            case true:
+                addItem();
+                break;
+            case false:
+                console.log('Going back to start menu.');
+                startMenu();
+                break;
+        }
+      })
+  }
+
+function addItem() {
+    connection.query('SELECT DISTINCT department FROM Products', function(err, res) {
+        if (err) throw err;
+        inquirer.prompt([
+            {
+                type: 'input',
+                name: 'newProd',
+                message: 'What is the name of the new product?'
+            },
+            {
+                type: 'rawlist',
+                name: 'newDepart',
+                message: 'Which department is this item in?',
+                choices: function() {
+                    var choiceArry = [];
+                    for (i = 0; i < res.length; i++) {
+                        choiceArry.push(res[i].department);
+                    }
+                    return choiceArry;
+                }
+            },
+            {
+                type: 'number',
+                name: 'newPrice',
+                message: 'How much are we selling this new product for?'
+            },
+            {
+                type: 'number',
+                name: 'newStock',
+                message: 'How many of these do we have?'
+            }
+        ]).then(function(answers) {
+            console.log(`\nNew Item Details\n-------------------------`);
+            console.log(`New Item: ${answers.newProd}\nDepartment: ${answers.newDepart}\nPrice: ${answers.newPrice}\nStock: ${answers.newStock}\n-------------------------`);
+            connection.query(`INSERT INTO Products (prodName, department, price, stock)VALUES("${answers.newProd}", "${answers.newDepart}", ${answers.newPrice}, ${answers.newStock})`, function(err, response) {
+                if (err) throw err;
+                console.log(response.affectedRows + " item added\n");
+                startMenu();
+            })
+        })
+    })
+}
