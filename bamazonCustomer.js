@@ -21,13 +21,12 @@ var connection = mysql.createConnection({
           {
               type: 'list',
               name: 'choice',
-              message: 'What would you like to do?',
-              choices: ['Buy Something', 'Quit']
+              message: 'Welcome to Bamazon!',
+              choices: ['See Product Selection', 'Quit']
           }
       ]).then(function(res) {
           switch(res.choice) {
-            case 'Buy Something':
-                console.log('Test Text');
+            case 'See Product Selection':
                 shopping();
                 break;
             case 'Quit':
@@ -39,7 +38,7 @@ var connection = mysql.createConnection({
   }
 
   function shopping() {
-    connection.query('SELECT id, prodName, department, price, stock FROM Products', function(err, res) {
+    connection.query('SELECT * FROM Products', function(err, res) {
         if (err) throw err;
         var table = new Table ({
             head: ['Id', 'Product', 'Department', 'Price', 'Stock'],
@@ -50,5 +49,55 @@ var connection = mysql.createConnection({
             )
         }
         console.log(table.toString());
+        inquirer.prompt([
+            {
+                type: 'list',
+                name: 'action',
+                message: 'What would you like to do?',
+                choices: ['Buy a Product', 'Go Back to Home', 'Quit']
+            }
+        ]).then(function(res) {
+            switch(res.action) {
+                case 'Buy a Product':
+                    buyMode();
+                    break;
+                case 'Go Back to Home':
+                    startUp();
+                    break;
+                case 'Quit':
+                    console.log('Goodbye!');
+                    connection.end();
+                    break;
+            }
+        })
+            
+    })
+  }
+
+  function buyMode() {
+    inquirer.prompt([
+        {
+            type: 'number',
+            name: 'selection',
+            message: 'Which item would you like to purchase? (input the Id number)'
+        },
+        {
+            type: 'number',
+            name: 'amount',
+            message: 'How many would you like to buy?'
+        }
+    ]).then(function(res) {
+        connection.query('SELECT * FROM Products WHERE ?', {id: res.selection}, function(err, response) {
+            if (err) throw err;
+            var total = Number(res.amount) * Number(response[0].price);
+            var newStock = response[0].stock - res.amount;
+            console.log(`You have purchased ${res.amount} ${response[0].prodName}(s) for $${total}!`);
+
+            connection.query('UPDATE Products SET ? WHERE ?', [{stock: `${newStock}`}, {id: `${res.selection}`}], function(err, res) {
+                if (err) throw err;
+                console.log(res.affectedRows + " stock updated\n")
+                shopping();
+            })
+        })
     })
   }
