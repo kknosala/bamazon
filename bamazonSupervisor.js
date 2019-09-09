@@ -13,8 +13,26 @@ var connection = mysql.createConnection({
   connection.connect(function(err) {
       if(err) throw err;
       console.log('Connected as id ' + connection.threadId);
-      startMenu();
+    veiwDepart();
   })
+
+  function veiwDepart() {
+    connection.query('SELECT * FROM departments', function(err, res) {
+        if (err) throw err;
+        var table = new Table({
+            head: ["Department ID", "Department", "Over Head Costs"]
+        });
+        for(i = 0; i < res.length; i++) {
+            table.push([
+                res[i].department_id,
+                res[i].department,
+                '$' + (res[i].over_head_costs).toFixed(2)
+            ])
+        }
+        console.log("\n" + table.toString() + "\n");
+        startMenu();
+    })
+}
 
 function startMenu() {
     console.log('Welcome!');
@@ -35,6 +53,7 @@ function startMenu() {
                 departSales();
                 break;
             case 'Create New Department':
+                addDepartConfirm();
                 break;
             case 'Quit':
                 console.log('Goodbye!');
@@ -64,3 +83,46 @@ function departSales() {
         startMenu();
     })
 }
+
+function addDepartConfirm() {
+    inquirer.prompt([
+        {
+            type: 'confirm',
+            name: 'confirm',
+            message: 'Are you sure you want to add a new department?',
+            defaut: true
+        }
+    ]).then(function(res) {
+        switch(res.confirm) {
+            case true:
+                addDepart();
+                break;
+            case false:
+                console.log('Going back to main menu...\n')
+                veiwDepart();
+                break;
+        }
+    })
+}
+
+function addDepart() {
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'newdepart',
+            message: 'What is the name of the new department?'
+        },
+        {
+            type: 'number',
+            name: 'newOver',
+            message: 'What is the overhead on the new department?'
+        }
+    ]).then(function(res) {
+        connection.query(`INSERT INTO departments (department, over_head_costs) VALUES ('${res.newdepart}', '${res.newOver}')`, function(err, response) {
+            if (err) throw err;
+            console.log(response.affectedRows + " department added\n");
+            veiwDepart();
+        })
+    })
+}
+
