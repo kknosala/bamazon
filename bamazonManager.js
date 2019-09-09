@@ -215,7 +215,11 @@ function addItem() {
           `New Item: ${answers.newProd}\nDepartment: ${answers.newDepart}\nPrice: ${answers.newPrice}\nStock: ${answers.newStock}\n-------------------------`
         );
         connection.query(
-          `INSERT INTO Products (prodName, department, price, stock, product_sales)VALUES("${answers.newProd}", "${answers.newDepart}", ${answers.newPrice}, ${answers.newStock}, ${0})`,
+          `INSERT INTO Products (prodName, department, price, stock, product_sales)VALUES("${
+            answers.newProd
+          }", "${answers.newDepart}", ${answers.newPrice}, ${
+            answers.newStock
+          }, ${0})`,
           function(err, response) {
             if (err) throw err;
             console.log(response.affectedRows + " item added\n");

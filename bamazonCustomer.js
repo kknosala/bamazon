@@ -104,12 +104,18 @@ function buyMode() {
           var total = Number(res.amount) * Number(response[0].price);
           var newStock = response[0].stock - res.amount;
           console.log(
-            `You have purchased ${res.amount} ${response[0].prodName}(s) for $${total.toFixed(2)}!`
+            `You have purchased ${res.amount} ${
+              response[0].prodName
+            }(s) for $${total.toFixed(2)}!`
           );
-            var saleUpdate = response[0].product_sales + total;
+          var saleUpdate = response[0].product_sales + total;
           connection.query(
             "UPDATE Products SET ?, ? WHERE ?",
-            [{ stock: `${newStock}` }, {product_sales: `${saleUpdate}`}, { id: `${res.selection}` }],
+            [
+              { stock: `${newStock}` },
+              { product_sales: `${saleUpdate}` },
+              { id: `${res.selection}` }
+            ],
             function(err, res) {
               if (err) throw err;
               console.log(res.affectedRows + " stock updated\n");
