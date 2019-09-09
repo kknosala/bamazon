@@ -104,7 +104,7 @@ function buyMode() {
           var total = Number(res.amount) * Number(response[0].price);
           var newStock = response[0].stock - res.amount;
           console.log(
-            `You have purchased ${res.amount} ${response[0].prodName}(s) for $${total}!`
+            `You have purchased ${res.amount} ${response[0].prodName}(s) for $${total.toFixed(2)}!`
           );
             var saleUpdate = response[0].product_sales + total;
           connection.query(
