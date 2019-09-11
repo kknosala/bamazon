@@ -34,3 +34,12 @@ Bamazon is an Amazon-like storefront created to demonstrait my skills with MYSQL
      Quit
      - This will close the connection and end the program
      ```
+   After purchasing an item, customers will see the changes if they choose to buy another product.
+
+### bamazonManager.js
+The Bamazon Manager App is designed to be used by managers to check on inventory, add to inventory, and to add new items to existing departments.
+#### Start Menu
+When the manager logs in, this is the screen they will see.
+```
+The following options are available:
+View Products for Sale
