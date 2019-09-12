@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <style>
-      .container {
-        display: grid;
-        grid-template-rows: auto auto auto;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-template-areas:
-          "header header header"
-          "customer manager supervisor"
-          ". manager .";
-        grid-gap: 4px;
-        text-align: center;
-      }
+        .container {
+            display: grid;
+            grid-template-rows: auto auto auto;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-areas: 
+                'header header header'
+                'customer manager supervisor'
+                '. manager .';
+            grid-gap: 4px;
+            text-align: center;
+        }
 
       .header {
         grid-area: header;
