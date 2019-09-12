@@ -1,109 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <style>
-        .container {
-            display: grid;
-            grid-template-rows: auto auto;
-            grid-template-columns: 1fr 1fr 1fr;
-            grid-template-areas: 
-                'header header header'
-                'customer manager supervisor';
-            border: 2px solid black;
-            grid-gap: 4px;
-            text-align: center;
-        }
+      .container {
+        display: grid;
+        grid-template-rows: auto auto auto;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-areas:
+          "header header header"
+          "customer manager supervisor"
+          ". manager .";
+        grid-gap: 4px;
+        text-align: center;
+      }
 
-        .header {
-            grid-area: header;
-            padding: 5px;
-            border: 2px solid black;
-        }
+      .header {
+        grid-area: header;
+        padding: 5px;
+        border: 2px solid black;
+      }
 
-        .customer {
-            grid-area: customer;
-            padding: 5px;
-            border: 2px solid black;
-        }
+      .customer {
+        grid-area: customer;
+        padding: 5px;
+        border: 2px solid black;
+      }
 
-        .manager {
-            grid-area: manager;
-            padding: 5px;
-            border: 2px solid black;
-        }
+      .manager {
+        grid-area: manager;
+        padding: 5px;
+        border: 2px solid black;
+      }
 
-        .supervisor {
-            grid-area: supervisor;
-            padding: 5px;
-            border: 2px solid black;
-        }
-
+      .supervisor {
+        grid-area: supervisor;
+        padding: 5px;
+        border: 2px solid black;
+      }
     </style>
     <title>Bamazon Demo Page</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <div class="header">
-            <h1>Bamazon Demo</h1>
-            <p>This page is a colleciton of screenshots for the Bamazon app. Bamazon is a demonstration of backend development using node.js and mysql. The code can be found <a href="https://github.com/kknosala/bamazon" target="#">here</a>.</p>
-        </div>
-        <div class="customer">
-            <h2>Bamazon Customer Interface</h2>
-            <p>Here's a demonstration of the Bamazon Customer Interface</p>
-            <h3>Start Menu</h3>
-            <img src="Images/Customer/intro.PNG" alt="Bamazon Customer Start Menu">
-            <p>This is the screen customers will see when they start the program. They are able to see the available products or quit.</p>
-            <h3>Available Products Screen</h3>
-            <img src="Images/Customer/shoppingscreen.PNG" alt="Available Products">
-            <p>Here, customers are able to see the available products and their prices. They are able to Choose to buy a product, go back to the start menu, or quit.</p>
-            <h3>Buying Process</h3>
-            <img src="/Images/Customer/buying.PNG" alt='Buying Page'>
-            <p>The customers will select the items by their id then input how many they would like to purchase. Once they have made their selection, they will receive a readout of their action and be taken back to the available products screen.</p>
-            <h3>Updated Table</h3>
-            <img src="Images/Customer/updatedtable.PNG" alt="Table has been updated">
-            <p>After purchasing the product, the available products table will be updated to reflect the new stock.</p>
-        </div>
-        <div class="manager">
-            <h2>Bamazon Manager Interface</h2>
-            <p>This is a walkthrough of the Bamazon Manager Interface</p>
-            <h3>Start Menu</h3>
-            <img src="Images/Manager/welcome.PNG" alt="Start Screen">
-            <p>When the manager logs in, this is the screen they will see.</p>
-            <h3>View Products for Sale</h3>
-            <img src="Images/Manager/viewproducts.PNG" alt="View Products Screen">
-            <p>When the View Products for Sale option is selected, the manager will see a rundown of all products and the information for each.</p>
-            <h3>View Low Inventory</h3>
-            <img src="Images/Manager/lowinventory.PNG" alt="Low Inventory Screen">
-            <p>If View Low Inventory is selected, the user will see a display of any product that has less than 5 items in its current inventory.</p>
-            <h3>Add to Inventory</h3>
-            <img src="Images/Manager/addinventory.PNG" alt="Add Inventory Screen">
-            <p>If the user chooses to add more inventory, they will be asked to pick the Id number of the item to be added to, then the amount that should be added.</p>
-            <img src="Images/Manager/updatedinventory.PNG" alt="Inventory Updated">
-            <p>This is an example of the inventory after the stock has been added to item 10.</p>
-            <h3>Add New Product</h3>
-            <img src="/Images/Manager/addnewitem.PNG" alt="Adding a new item">
-            <p>If add new product is selected, users are asked to confirm that they want to add the new item. If they decline, they will go back to the start menu. They are then asked to name the new product, select the department, enter the price, and enter the intial stock. The department list is generated dynamically based on what deparments currently exist.</p>
-            <img src="Images/Manager/addinventory2.PNG" alt="Confirm Screen">
-            <p>After inputing the information, the user is given a summary of the new item.</p>
-            <img src="/Images/Manager/updatedafteradd.PNG" alt="New Item Displayed">
-            <p>Once the item has been added, the user can see it when they select View Prodcuts for Sale.</p>
-        </div>
-        <div class="supervisor">
-            <h2>Bamazon supervisor Interface</h2>
-            <p>These images walk through the user process for Supervisors</p>
-            <h3>Start Menu</h3>
-            <img src="Images/Supervisor/startscreen.PNG" alt="Start Menu">
-            <p>This is the start menu for Supervsiors. The user will see a short summary of each of the current departments on this screen.</p>
-            <h3>View Product Sales by Department</h3>
-            <img src="/Images/Supervisor/viewdepartments.PNG" alt="View Department Screen">
-            <p>Users are able to see information about each of the current departments. The current profits column is dynamically calulated whenever a change is made.</p>
-            <h3>Add Department</h3> 
-            <img src="Images/Supervisor/adddepartment.PNG" alt="Adding a New Department">
-            <p>Users will be asked to confirm that they would liek to add a new department. Once they confirm, they will need to enter the new department's name, and the starting overhead costs. The new department will be displayed only on the start screen until stock has been added to the inventory.</p>
-        </div>
+      <div class="header">
+        <h1>Bamazon Demo</h1>
+        <p>
+          This page is a colleciton of screenshots for the Bamazon app. Bamazon
+          is a demonstration of backend development using node.js and mysql. The
+          code can be found
+          <a href="https://github.com/kknosala/bamazon" target="#">here</a>.
+        </p>
+      </div>
+      <div class="customer">
+        <h2>Bamazon Customer Interface</h2>
+        <p>Here's a demonstration of the Bamazon Customer Interface</p>
+        <h3>Start Menu</h3>
+        <img
+          src="Images/Customer/intro.PNG"
+          alt="Bamazon Customer Start Menu"
+        />
+        <p>
+          This is the screen customers will see when they start the program.
+          They are able to see the available products or quit.
+        </p>
+        <h3>Available Products Screen</h3>
+        <img
+          src="Images/Customer/shoppingscreen.PNG"
+          alt="Available Products"
+        />
+        <p>
+          Here, customers are able to see the available products and their
+          prices. They are able to Choose to buy a product, go back to the start
+          menu, or quit.
+        </p>
+        <h3>Buying Process</h3>
+        <img src="Images/Customer/buying.PNG" alt="Buying Page" />
+        <p>
+          The customers will select the items by their id then input how many
+          they would like to purchase. Once they have made their selection, they
+          will receive a readout of their action and be taken back to the
+          available products screen.
+        </p>
+        <h3>Updated Table</h3>
+        <img
+          src="Images/Customer/updatedtable.PNG"
+          alt="Table has been updated"
+        />
+        <p>
+          After purchasing the product, the available products table will be
+          updated to reflect the new stock.
+        </p>
+      </div>
+      <div class="manager">
+        <h2>Bamazon Manager Interface</h2>
+        <p>This is a walkthrough of the Bamazon Manager Interface</p>
+        <h3>Start Menu</h3>
+        <img src="Images/Manager/welcome.PNG" alt="Start Screen" />
+        <p>When the manager logs in, this is the screen they will see.</p>
+        <h3>View Products for Sale</h3>
+        <img src="Images/Manager/viewproducts.PNG" alt="View Products Screen" />
+        <p>
+          When the View Products for Sale option is selected, the manager will
+          see a rundown of all products and the information for each.
+        </p>
+        <h3>View Low Inventory</h3>
+        <img src="Images/Manager/lowinventory.PNG" alt="Low Inventory Screen" />
+        <p>
+          If View Low Inventory is selected, the user will see a display of any
+          product that has less than 5 items in its current inventory.
+        </p>
+        <h3>Add to Inventory</h3>
+        <img src="Images/Manager/addinventory.PNG" alt="Add Inventory Screen" />
+        <p>
+          If the user chooses to add more inventory, they will be asked to pick
+          the Id number of the item to be added to, then the amount that should
+          be added.
+        </p>
+        <img
+          src="Images/Manager/updatedinventory.PNG"
+          alt="Inventory Updated"
+        />
+        <p>
+          This is an example of the inventory after the stock has been added to
+          item 10.
+        </p>
+        <h3>Add New Product</h3>
+        <img src="/Images/Manager/addnewitem.PNG" alt="Adding a new item" />
+        <p>
+          If add new product is selected, users are asked to confirm that they
+          want to add the new item. If they decline, they will go back to the
+          start menu. They are then asked to name the new product, select the
+          department, enter the price, and enter the intial stock. The
+          department list is generated dynamically based on what deparments
+          currently exist.
+        </p>
+        <img src="Images/Manager/addinventory2.PNG" alt="Confirm Screen" />
+        <p>
+          After inputing the information, the user is given a summary of the new
+          item.
+        </p>
+        <img
+          src="/Images/Manager/updatedafteradd.PNG"
+          alt="New Item Displayed"
+        />
+        <p>
+          Once the item has been added, the user can see it when they select
+          View Prodcuts for Sale.
+        </p>
+      </div>
+      <div class="supervisor">
+        <h2>Bamazon supervisor Interface</h2>
+        <p>These images walk through the user process for Supervisors</p>
+        <h3>Start Menu</h3>
+        <img src="Images/Supervisor/startscreen.PNG" alt="Start Menu" />
+        <p>
+          This is the start menu for Supervsiors. The user will see a short
+          summary of each of the current departments on this screen.
+        </p>
+        <h3>View Product Sales by Department</h3>
+        <img
+          src="Images/Supervisor/viewdepartments.PNG"
+          alt="View Department Screen"
+        />
+        <p>
+          Users are able to see information about each of the current
+          departments. The current profits column is dynamically calulated
+          whenever a change is made.
+        </p>
+        <h3>Add Department</h3>
+        <img
+          src="Images/Supervisor/adddepartment.PNG"
+          alt="Adding a New Department"
+        />
+        <p>
+          Users will be asked to confirm that they would liek to add a new
+          department. Once they confirm, they will need to enter the new
+          department's name, and the starting overhead costs. The new department
+          will be displayed only on the start screen until stock has been added
+          to the inventory.
+        </p>
+      </div>
     </div>
-</body>
+  </body>
 </html>
